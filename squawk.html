@@ -1,0 +1,90 @@
+<html>
+
+<head>
+
+<style>
+body {
+  text-align: center;
+  background-image: url('debut_dark.png'); 
+  margin: 0;
+  }
+
+#container {
+  margin: 0 auto;
+  width: 920px;
+  background-color: white; opacity: 0.9;
+  }
+  #container:after { clear: both;}
+
+  #header { background-image: url('twinkle_twinkle.png'); color: #888; text-align: left; height: 30px;}
+
+#actions { width: 280px; float:left; background-color: #666; padding: 10px; overflow: hidden;}
+#messages-container { background-color: #666; padding: 10px; overflow: hidden;}
+#send { margin-top: 10px; padding: 4px; border-radius: 6px; background-color: silver; }
+#send input { display: block; }
+#send input[type='text'] { width: 100%;}
+#messages { border-radius: 6px; background-color: white; }
+#gpio { background-color: white; padding: 10px; border-radius: 6px;}
+.io { height: 10px; width: 10px; padding: 2px; content: '.'; display: inline-block;}
+.io.on { background: #0a0; }
+.io.off { background: #a00; }
+
+.message { text-align: left; padding: 8px; border-radius: 2px; }
+.message .avatar { float:left; }
+.message .body { display: inline-block; vertical-align: top; margin-top: 4px;}
+.message .body .from { font-weight: bold;}
+.message .time { float: right;}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="header">
+    Squawk
+  </div>
+
+<div id="actions">
+
+  <div id="gpio">
+    <div class="io on"></div>
+    <div class="io off"></div>
+  </div>
+
+  <div id="send">
+    <form action="squawk">
+    Name:
+      <input type="text" name="name" />
+      Message:
+      <input type="text" name="message" />
+      Avatar:
+      <select name="avatar">
+      <option>Default</option>
+      </select>
+      <input type="submit" />
+    </form>
+  </div>
+
+</div>
+
+<div id="messages-container">
+  <div id="messages">
+	[MESSAGES]
+    <div class="message">
+      <img src="http://placehold.it/48x48" />
+      <div class="body">
+        <span class="from">From</span><br/><span class="body">Message</span>
+      </div>
+      <div class="time">15:37</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+</body>
+
+</html>
