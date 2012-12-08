@@ -3,20 +3,25 @@ from datetime import datetime
 
 class SquawkApp(object):
 	"""docstring for SquawkApp"""
-	squakList[] = Squawk[]
+
+	def __init__(self):
+		self.squawkList = []
+	
 	def index(self):
-		# serve index
-	def squawksjson(self):
-		# serve json of squawks
-	def postSquawk(self,squawkText,squawkName):
-		# 
-		squawk = squawk(squawkText,squawkName)
+		return("index works")
+
+	def squawksjson(self,time):
+		# serve json of all squawks after time
+		for squawk in squawkList[]:
+			print("{name:"+squawk.username+",squawk:"+squawk.squawk+"time:"+squawk.time+"}")
+
+	def postSquawk(self,squawkText=None,squawkName=None):
+		squawk = squawk("This is the very first Squawk","Hugh")
+		self.squawkList.append(squawk)
 
 class Squawk(object):
 	"""docstring for Squawk"""
-	squawk = ""
-	username = ""
-	time = ""
+
 	def __init__(self, squawkText, squawkName):
 		super(ClassName, self).__init__()
 		self.squawk = squawkText
@@ -25,5 +30,6 @@ class Squawk(object):
 
 class GPIOIntegration(object):
 	"""docstring for GPIOIntegration"""
+
 	def function(self):
 		print("Called")
