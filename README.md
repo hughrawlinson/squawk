@@ -1,7 +1,7 @@
 # Squawk
 Squawk is a Twitter inspired web server that runs on a Raspberry PI and allows you to control your GPIOs remotely.
  
-It was developed by Hugh Rawlinson (@hughrawlinson) and Rich Hollis (@richhollis) at Code Club's Raspberry PI Hack (8/12/12 - 9/12/12). We won the best school focussed app prize.
+It was developed by Hugh Rawlinson [@hughrawlinson](http://www.twitter.com/hughrawlinson) and Rich Hollis [@richhollis](http://www.twitter.com/richhollis) at Code Club's Raspberry PI Hack (8/12/12 - 9/12/12). We won the best school focussed app prize.
  
 Hey, why not just use the Twitter API? We originally considered talking directly to Twitter but we considered the possibility that some schools will block access to social media sites like Twitter through their firewall. So we decided to create a stand-alone project that anyone could use without restriction.
  
