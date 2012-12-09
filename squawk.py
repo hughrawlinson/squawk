@@ -2,7 +2,6 @@ import cherrypy
 import re
 import os
 from datetime import datetime
-from ossaudiodev import open
 
 class SquawkApp(object):
     """Main Squawk Server"""
