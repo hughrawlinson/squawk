@@ -2,13 +2,13 @@ import cherrypy
 import re
 import os
 from datetime import datetime
+from ossaudiodev import open
 
 class SquawkApp(object):
-	"""docstring for SquawkApp"""
-	s = Sound() 
-	s.read('squawk2.aif') 
+	"""Main Squawk Server"""
 
 	def __init__(self):
+		"""Initialise Squawk Server"""
 		self.squawkList = []
 		print("initialised")
 		os.system("echo \"17\" > /sys/class/gpio/export")
@@ -17,6 +17,7 @@ class SquawkApp(object):
 		os.system("echo \"out\" > /sys/class/gpio/gpio22/direction")
 	
 	def index(self):
+		"""Concatenate parts of web page"""
 		return(self.header()+self.actions()+self.messages()+self.footer())
 	index.exposed = True
 
@@ -29,17 +30,17 @@ class SquawkApp(object):
 	# squawksJson.exposed = True
 
 	def handleGPIOCommands(self,message):
+		"""Check message for GPIO command"""
 		onGpio = GpioCommands.get_turn_on_gpio(message)
 		offGpio = GpioCommands.get_turn_off_gpio(message)
 		if(onGpio > 0):
 			os.system("echo \"1\" > /sys/class/gpio/gpio"+str(onGpio)+"/value")
-			s.play()
 
 		if(offGpio > 0):
 			os.system("echo \"0\" > /sys/class/gpio/gpio"+str(offGpio)+"/value")
-			s.play()
 
 	def postSquawk(self,name=None,message=None,avatar=None):
+		"""Prepend squawk input to squawkList"""
 		self.handleGPIOCommands(message)
 		squawk = Squawk(message,name)
 		self.squawkList.insert(0,squawk)
@@ -47,6 +48,7 @@ class SquawkApp(object):
 	postSquawk.exposed = True
 
 	def header(self):
+		"""Return head of HTML"""
 		return('''<html>
 <head>
 
@@ -96,13 +98,9 @@ body {
   </div>''')
 
 	def actions(self):
+		"""return html send div"""
 		# return action
 		return('''<div id="actions">
-
-  <div id="gpio">
-    <div class="io on"></div>
-    <div class="io off"></div>
-  </div>
 
   <div id="send">
     <form method="post" action="postSquawk">
@@ -121,6 +119,7 @@ body {
 </div>''')
 
 	def messages(self):
+		"""Return message container with message details"""
 		# return messages in html
 		return('''<div id="messages-container">
   <div id="messages">
@@ -129,11 +128,13 @@ body {
 </div>''' % self.messagedetail())
 
 	def footer(self):
+		"""return foot of html"""
 		return('''</div>
 </body>
 </html>''')
 
 	def messagedetail(self):
+		"""Return each message in html"""
 		output = ""
 		for squawk in self.squawkList:
 			output += '''<div class="message">
@@ -146,6 +147,7 @@ body {
 		return output
 
 	def prettydate(self,d):
+		"""Twitter style times"""
 	    diff = datetime.utcnow() - d
 	    s = diff.seconds
 	    if diff.days > 7 or diff.days < 0:
@@ -169,7 +171,7 @@ body {
 
 
 class Squawk(object):
-	"""docstring for Squawk"""
+	"""Individual Squawk object"""
 
 	def __init__(self, squawkText, squawkName):
 		self.squawk = squawkText
@@ -177,13 +179,14 @@ class Squawk(object):
 		self.time = datetime.utcnow()
 
 class GpioCommands(object):
-	"""docstring for GpioCommands"""
+	"""Class for Controlling GPIO"""
 	def __init__(self, arg):
 		super(GpioCommands, self).__init__()
 		self.arg = arg
 
 	@staticmethod
 	def get_turn_on_gpio(str):
+		"""Regex expression for turning on LED"""
 		m = re.search('^TURN\s(\d{1,2})\sON$', str, re.IGNORECASE)
 		if m is not None:
 			return int(m.group(1))
@@ -191,6 +194,7 @@ class GpioCommands(object):
 
 	@staticmethod
 	def get_turn_off_gpio(str):
+		"""Regex expression for turning off LED"""
 		m = re.search('^TURN\s(\d{1,2})\sOFF$', str, re.IGNORECASE)
 		if m is not None:
 			return int(m.group(1))
