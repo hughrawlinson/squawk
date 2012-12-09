@@ -5,6 +5,8 @@ from datetime import datetime
 
 class SquawkApp(object):
 	"""docstring for SquawkApp"""
+	s = Sound() 
+	s.read('squawk2.aif') 
 
 	def __init__(self):
 		self.squawkList = []
@@ -31,8 +33,11 @@ class SquawkApp(object):
 		offGpio = GpioCommands.get_turn_off_gpio(message)
 		if(onGpio > 0):
 			os.system("echo \"1\" > /sys/class/gpio/gpio"+str(onGpio)+"/value")
+			s.play()
+
 		if(offGpio > 0):
 			os.system("echo \"0\" > /sys/class/gpio/gpio"+str(offGpio)+"/value")
+			s.play()
 
 	def postSquawk(self,name=None,message=None,avatar=None):
 		self.handleGPIOCommands(message)
