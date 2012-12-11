@@ -19,7 +19,7 @@ Squawk runs as a single python script. Currently, the only library dependency is
 
 # Screenshots
 
-![Screenshot of Squawk](https://github.com/hughrawlinson/squawk/screenshot.png "Screenshot of Squawk")
+![Screenshot of Squawk](https://raw.github.com/hughrawlinson/squawk/master/screenshot.png "Screenshot of Squawk")
 
 # How To
 Squawk is a python webserver that uses the [Cherry Py](http://cherrypy.org) library, so prior to using Squawk you'll have to install that. Instructions are at the Cherry Py website. To run squawk, go to the directory into which you downloaded the source and run `sudo python squawk.py`. It will set up the GPIO pins for you. On line 227 of Squawk you will have to put in the internal IP address of your Pi on your network. You can then set up port forwarding on your router to allow external access. You can then have any computer on the network point their browsers at the Pi port 8080 (you may want to set up dns or hosts files to use a domain name internally). Each user will be able to see each other's tweets, and command the GPIO ports (with the commands listed above)
